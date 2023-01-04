@@ -13,8 +13,8 @@ openssl req -in warden.csr -noout -text
 
 #Create certificate using CSR and Root CA
 
-openssl x509 -req -days 365 -in warden.csr -signkey ca.key -out warden.crt -extfile ../ext.cnf -extensions req_ext
+openssl x509 -req -days 365 -in warden.csr -signkey warden.key -out warden.crt -extfile ../ext.cnf -extensions req_ext
  
 #cp warden.crt wardencrt.pem \
-cp warden.crt wardencrt.pem \
-    | openssl rsa -in warden.key -text > wardenkey.pem
+cp warden.crt wardencrt.pem
+openssl rsa -in warden.key -text > wardenkey.pem

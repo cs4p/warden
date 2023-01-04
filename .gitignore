@@ -1,0 +1,4 @@
+/deployment_yaml/
+/venv/
+/certs/
+!/certs

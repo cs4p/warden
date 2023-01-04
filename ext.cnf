@@ -5,10 +5,10 @@ req_extensions     = req_ext
 prompt             = no
 [ req_distinguished_name ]
 countryName                 = US
-stateOrProvinceName         = Illinois
-localityName                = Chicago
-organizationName            = HollowLabs
-commonName                  = Warden Controller Webhook
+stateOrProvinceName         = DC
+localityName                = Washington
+organizationName            = OMB
+commonName                  = OMB Controller Webhook
 [ req_ext ]
 subjectAltName = @alt_names
 [alt_names]

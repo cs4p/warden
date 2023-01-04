@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-   name: validation
+   name: {{ .Values.namespace }}
 ---
 apiVersion: v1
 kind: Pod
@@ -10,22 +10,22 @@ metadata:
   name: warden
   labels:
     app: warden
-  namespace: validation
+  namespace: {{ .Values.namespace }}
 spec:
   restartPolicy: OnFailure
   containers:
     - name: warden
-      image: eshanks16/warden:v1 #EXAMPLE-USE YOUR IMAGE REPO/IMAGE
+      image: {{ .Values.image_name }}:{{ .Values.ver_num }} #EXAMPLE-USE YOUR IMAGE REPO/IMAGE
       imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: warden
-  namespace: validation
+  namespace: {{ .Values.namespace }}
 spec:
   selector:
     app: warden
   ports:
   - port: 443
-    targetPort: 5000
+    targetPort: 443

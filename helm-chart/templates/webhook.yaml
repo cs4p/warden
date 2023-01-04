@@ -2,7 +2,7 @@ apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
   name: validating-webhook
-  namespace: validation
+  namespace: {{ .Values.namespace }}
 webhooks:
   - name: warden.validation.svc
     failurePolicy: Fail
@@ -20,6 +20,6 @@ webhooks:
     clientConfig:
       service:
         name: warden
-        namespace: validation
+        namespace: {{ .Values.namespace }}
         path: /validate/
-      caBundle: 
+      caBundle: {{ .Values.ca_bundle }}
