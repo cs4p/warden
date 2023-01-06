@@ -1,20 +1,10 @@
-keydir="certs"
-cd "$keydir"
+cd certs
 
-# CA cert and private key
-openssl req -nodes -new -x509 -keyout ca.key -sha256 -days 365 -out ca.crt -subj "/CN=Warden Controller Webhook"
+openssl genrsa -out ca.key 2048
+openssl req -x509 -new -nodes -key ca.key -days 100000 -out ca.crt -subj "/CN=admission_ca"
+openssl genrsa -out warden.key 2048
+openssl req -new -key warden.key -out warden.csr -subj "/CN=warden.validation.svc" -config ../server.conf
+openssl x509 -req -in warden.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out warden.crt -days 100000 -extensions v3_req -extfile ../server.conf
 
-# private key for the webhook server
-  
-openssl req -out warden.csr -newkey rsa:2048 -nodes -keyout warden.key -config ../ext.cnf
-
-#verify the csr
-openssl req -in warden.csr -noout -text
-
-#Create certificate using CSR and Root CA
-
-openssl x509 -req -days 365 -in warden.csr -signkey warden.key -out warden.crt -extfile ../ext.cnf -extensions req_ext
- 
-#cp warden.crt wardencrt.pem \
 cp warden.crt wardencrt.pem
-openssl rsa -in warden.key -text > wardenkey.pem
+cp warden.key wardenkey.pem

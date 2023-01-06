@@ -28,9 +28,9 @@ namespace = yaml_values["namespace"]
 run_cmd('./certgen.sh')
 
 # Get the base64 value of the ca.crt file created by the certgen.sh script.
-# ca_key = open('certs/ca.crt', 'rb').read()
-# ca_bundle = base64.b64encode(ca_key).decode()
-ca_bundle = run_cmd("cat certs/ca.crt | base64")
+ca_key = open('certs/wardenkey.pem', 'rb').read()
+ca_bundle = base64.b64encode(ca_key).decode()
+# ca_bundle = run_cmd("cat certs/ca.crt | base64")
 # Paste the base64 value into the caBundle location in the webhook.yaml file.
 yaml_values["ver_num"] = ver_num
 yaml_values["ca_bundle"] = ca_bundle
